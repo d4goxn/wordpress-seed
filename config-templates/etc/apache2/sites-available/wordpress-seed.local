@@ -1,0 +1,34 @@
+<VirtualHost *:80>
+	ServerAdmin webmaster@localhost
+	ServerName wordpress-seed.local
+
+	DocumentRoot /home/dan/Projects/wordpress-seed/www
+	<Directory />
+		Options FollowSymLinks
+		AllowOverride None
+	</Directory>
+	<Directory /home/dan/Projects/wordpress-seed/www/>
+		Options Indexes FollowSymLinks MultiViews
+		AllowOverride All
+		Order allow,deny
+		allow from all
+	</Directory>
+
+	ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/
+	<Directory "/usr/lib/cgi-bin">
+		AllowOverride None
+		Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
+		Order allow,deny
+		Allow from all
+		Require all granted /home/dan/Projects/wordpress-seed/www
+	</Directory>
+
+	ErrorLog /home/dan/Projects/wordpress-seed/logs/error.log
+
+	# Possible values include: debug, info, notice, warn, error, crit,
+	# alert, emerg.
+	LogLevel warn
+
+	CustomLog /home/dan/Projects/wordpress-seed/logs/access.log combined
+
+</VirtualHost>
